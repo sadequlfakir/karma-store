@@ -6,8 +6,8 @@ import { Link } from 'react-router-dom';
 const Card = ({ name, price, rPrice, imgUrl, handleAddToCart, handleViewMore }) => {
     return (
         <div className="max-w-[255px] overflow-hidden">
-            <div className="w-[255px] h-[271px] select-none">
-                <img className='w-full h-full object-cover' src={imgUrl} alt="" />
+            <div className="group w-[255px] h-[271px] overflow-hidden select-none">
+                <img className='w-full h-full scale-100 group-hover:scale-125 duration-700 ease-in-out object-cover' src={imgUrl} alt="" />
             </div>
             <div className="mt-5">
                 <h6 className='uppercase font-medium text-[#222222] '>{name}</h6>
