@@ -1,5 +1,5 @@
 import React from 'react';
-import {FaLongArrowAltRight} from 'react-icons/fa'
+import { FaLongArrowAltRight, FaFacebookF, FaTwitter, FaDribbble, FaBehance } from 'react-icons/fa'
 
 const Footer = () => {
     return (
@@ -23,9 +23,15 @@ const Footer = () => {
                 <div className="flex-1">
                     <h2 className='text-lg font-semibold'>Follow Us</h2>
                     <p className='mt-6 text-sm text-[#777777]'>Let us be social</p>
+                   <p className='mt-3 flex gap-2.5'>
+                        <FaFacebookF className='hover:text-primary cursor-pointer' /> 
+                        <FaTwitter className='hover:text-primary cursor-pointer' /> 
+                        <FaDribbble className='hover:text-primary cursor-pointer' /> 
+                        <FaBehance className='hover:text-primary cursor-pointer' /> 
+                    </p>
                 </div>
             </div>
-            <p className='text-center text-secondary text-sm mt-20'>Copyright &copy; 2022 All rights reserved | This template is made with 🧡 by <span className='text-primary'>Sadequl</span></p>
+            <p className='text-center text-secondary text-sm mt-20'>Copyright &copy; 2022 All rights reserved | This template is made with 🧡 by <span className='text-primary'>Sadequl 🇧🇩</span></p>
         </div>
     )
 };
