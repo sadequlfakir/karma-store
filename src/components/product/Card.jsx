@@ -3,7 +3,7 @@ import {TfiReload} from 'react-icons/tfi'
 import {BsHandbag, BsHeart, BsArrowsMove} from 'react-icons/bs'
 import { Link } from 'react-router-dom';
 
-const Card = ({ name, price, rPrice, imgUrl, handleAddToCart, handleViewMore }) => {
+const Card = ({ name, price, rPrice, imgUrl, handleAddToCart, singleViewLink }) => {
     return (
         <div className="max-w-[255px] overflow-hidden">
             <div className="group w-[255px] h-[271px] overflow-hidden select-none">
@@ -34,7 +34,7 @@ const Card = ({ name, price, rPrice, imgUrl, handleAddToCart, handleViewMore }) 
                         </span>
                         <span className='z-10 min-w-[65px] hidden group-hover:block pl-2 absolute group-hover:right-0 uppercase text-[#222222] text-xs font-medium'>compare</span>
                     </Link>
-                    <Link to='/view' onClick={handleViewMore} className='flex items-center group w-[30px] hover:w-[114px] duration-500 relative overflow-hidden' >
+                    <Link to={singleViewLink} className='flex items-center group w-[30px] hover:w-[114px] duration-500 relative overflow-hidden' >
                         <span className="z-20 min-w-[30px] h-[30px] flex justify-center items-center bg-sky hover:bg-gradient-to-l from-orange to-primary text-white rounded-full">
                             <BsArrowsMove />
                         </span>

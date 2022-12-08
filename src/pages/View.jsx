@@ -1,53 +1,74 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { AiFillPlusSquare, AiFillMinusSquare, AiFillStar } from 'react-icons/ai'
 import {SlDiamond} from 'react-icons/sl'
 import {BsHeart} from 'react-icons/bs'
+import { products } from '../data';
+import { GlobalState } from '../store';
 
 const View = () => {
 
+    const { id } = useParams();
+    const [product, setProduct] = useState(null);
+
+    useEffect(() => {
+        const filtered = products.filter(product => product.id == id )
+
+        if(filtered.length) {
+            setProduct(filtered[0]);
+        }
+    }, []);
+
     const [qty, setQty] = useState(1);
+
     const onChangeH = (e) => setQty(e.target.value);
-    const [tab, setTab] = useState('description')
+
+    const [tab, setTab] = useState('description');
+
+    const {addToCart} = useContext(GlobalState)
 
     return (
         <div className="min-h-[60vh] mx-[8%] my-20">
-            <div className="flex gap-10">
-                <div className="w-[540px] h-[580px]">
-                    <img className='w-full h-full object-cover' src="/img/view.webp" alt="" />
-                </div>
-                <div className=" mt-24">
-                    <h1 className='text-2xl text-[#333] font-medium'>Faded SkyBlu Denim Jeans</h1>
-                    <h2 className='text-2xl text-primary font-bold mt-2'>$149.99</h2>
-                    <ul className='py-4 border-b'>
-                        <li className="flex items-center gap-[38px]">
-                            <p className='text-sm text-[#444]'>Category</p>
-                            <p className=' text-sm text-orange'>: Household</p>
-                        </li>
-                        <li className="flex items-center gap-8 mt-1.5">
-                            <p className='text-sm text-[#444]'>Availibility</p>
-                            <p className='text-sm text-[#444]'>: In Stock</p>
-                        </li>
-                    </ul>
-                    <p className='max-w-[460px] text-secondary text-sm leading-6 py-4'>
-                        Mill Oil is an innovative oil filled radiator with the most modern technology. If you are looking for something that can make your interior look awesome, and at the same time give you the pleasant warm feeling during the winter.
-                    </p>
-                    <div className="">
-                        <div className="flex items-center mt-10">
-                            <p className='mr-2 text-secondary'>Quantity:</p>
-                            <div className="flex items-center">
-                                <button disabled={qty <= 1} onClick={() => setQty(prev => prev -1)} className='text-2xl text-secondary'><AiFillMinusSquare /></button>
-                                <input className='max-w-[60px] px-3 text-center focus:outline-none' onChange={onChangeH} maxlength="3" value={qty} type="text" />
-                                <button onClick={() => setQty(prev => prev +1)} className='text-2xl text-secondary'><AiFillPlusSquare /></button>
+            {
+                product !== null &&
+                    <div className="flex gap-10">
+                        <div className="w-[540px] h-[580px]">
+                            <img className='w-full h-full object-cover' src={product.imgUrl} alt="" />
+                        </div>
+                        <div className=" mt-24">
+                            <h1 className='text-2xl text-[#333] font-medium'>{product.name}</h1>
+                            <h2 className='text-2xl text-primary font-bold mt-2'>${product.price}</h2>
+                            <ul className='py-4 border-b'>
+                                <li className="flex items-center gap-[38px]">
+                                    <p className='text-sm text-[#444]'>Category</p>
+                                    <p className=' text-sm text-orange'>: Household</p>
+                                </li>
+                                <li className="flex items-center gap-8 mt-1.5">
+                                    <p className='text-sm text-[#444]'>Availibility</p>
+                                    <p className='text-sm text-[#444]'>: In Stock</p>
+                                </li>
+                            </ul>
+                            <p className='max-w-[460px] text-secondary text-sm leading-6 py-4'>
+                                Mill Oil is an innovative oil filled radiator with the most modern technology. If you are looking for something that can make your interior look awesome, and at the same time give you the pleasant warm feeling during the winter.
+                            </p>
+                            <div className="">
+                                <div className="flex items-center mt-10">
+                                    <p className='mr-2 text-secondary'>Quantity:</p>
+                                    <div className="flex items-center">
+                                        <button disabled={qty <= 1} onClick={() => setQty(prev => prev -1)} className='text-2xl text-secondary'><AiFillMinusSquare /></button>
+                                        <input className='max-w-[60px] px-3 text-center focus:outline-none' maxlength="3" onChange={onChangeH} value={qty} type="text" />
+                                        <button onClick={() => setQty(prev => prev +1)} className='text-2xl text-secondary'><AiFillPlusSquare /></button>
+                                    </div>
+                                </div>
+                                <div className=" mt-7 flex items-center gap-2.5">
+                                    <button onClick={() => addToCart({...product, qty})} className='uppercase text-white px-12 py-2.5 font-medium text-sm rounded-md bg-gradient-to-r from-primary to-orange'>add to cart</button>
+                                    <button className='w-10 h-10 flex items-center justify-center text-sm rounded-full bg-sky hover:bg-gradient-to-r from-primary to-orange text-white'><SlDiamond /></button>
+                                    <button className='w-10 h-10 flex items-center justify-center text-sm rounded-full bg-sky hover:bg-gradient-to-r from-primary to-orange text-white'><BsHeart /></button>
+                                </div>
                             </div>
                         </div>
-                        <div className=" mt-7 flex items-center gap-2.5">
-                            <button className='uppercase text-white px-12 py-2.5 font-medium text-sm rounded-md bg-gradient-to-r from-primary to-orange'>add to cart</button>
-                            <button className='w-10 h-10 flex items-center justify-center text-sm rounded-full bg-sky hover:bg-gradient-to-r from-primary to-orange text-white'><SlDiamond /></button>
-                            <button className='w-10 h-10 flex items-center justify-center text-sm rounded-full bg-sky hover:bg-gradient-to-r from-primary to-orange text-white'><BsHeart /></button>
-                        </div>
                     </div>
-                </div>
-            </div>
+            }
             <div className="my-14 border">
                 <div className="flex gap-4 items-center justify-center text-xs py-2.5 bg-[#e8f0f2] ">
                     <button onClick={() => setTab('description')} className={`px-[30px] py-3 bg-white border ${tab === 'description' ? ' bg-gradient-to-r from-primary to-orange ' : ''}`} >Description</button>

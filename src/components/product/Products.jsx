@@ -14,7 +14,7 @@ const Products = ({addToCart}) => {
                     rPrice={product.regularPrice}
                     imgUrl={product.imgUrl}
                     handleAddToCart={() => addToCart({...product, qty: 1})}
-                    handleViewMore={() => viewMore(products)}
+                    singleViewLink={`/view/${product.id}`}
                 />
             )
         }

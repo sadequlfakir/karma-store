@@ -9,7 +9,7 @@ const App = () => {
         <Header />
         <Routes>
           <Route index element={<Home />} />
-          <Route path='/view' element={<View />} />
+          <Route path='/view/:id' element={<View />} />
           <Route path='/cart' element={<Cart />} />
           <Route path='/checkout' element={<Checkout />} />
         </Routes>
