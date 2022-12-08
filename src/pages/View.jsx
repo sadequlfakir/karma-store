@@ -3,12 +3,11 @@ import { useParams } from 'react-router-dom';
 import { AiFillPlusSquare, AiFillMinusSquare, AiFillStar } from 'react-icons/ai'
 import {SlDiamond} from 'react-icons/sl'
 import {BsHeart} from 'react-icons/bs'
-import { products } from '../data';
+// import { products } from '../data'; // import default product 🔥 👈
 import { GlobalState } from '../store';
 
 const View = () => {
 
-    const { id } = useParams();
     const [product, setProduct] = useState({});
 
     useEffect(() => {
@@ -17,12 +16,16 @@ const View = () => {
             const sprd = await fetch(`https://fakestoreapi.com/products/${id}`)
             const jsSprd = await sprd.json();
             setProduct(jsSprd);
-            console.log("Product: ",jsSprd);
         }
         
         return () => fetchPData()
 
     }, [])
+
+    // show single Product without api 🔥 👇
+
+    //const { id } = useParams();
+    //const [product, setProduct] = useState({});
 
     // useEffect(() => {
     //     const filtered = products.filter(product => product.id == id )
@@ -33,11 +36,8 @@ const View = () => {
     // }, []);
 
     const [qty, setQty] = useState(1);
-
     const onChangeH = (e) => setQty(e.target.value);
-
     const [tab, setTab] = useState('description');
-
     const {addToCart} = useContext(GlobalState)
 
     return (
