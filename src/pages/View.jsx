@@ -9,15 +9,28 @@ import { GlobalState } from '../store';
 const View = () => {
 
     const { id } = useParams();
-    const [product, setProduct] = useState(null);
+    const [product, setProduct] = useState({});
 
     useEffect(() => {
-        const filtered = products.filter(product => product.id == id )
 
-        if(filtered.length) {
-            setProduct(filtered[0]);
+        const fetchPData = async () => {
+            const sprd = await fetch(`https://fakestoreapi.com/products/${id}`)
+            const jsSprd = await sprd.json();
+            setProduct(jsSprd);
+            console.log("Product: ",jsSprd);
         }
-    }, []);
+        
+        return () => fetchPData()
+
+    }, [])
+
+    // useEffect(() => {
+    //     const filtered = products.filter(product => product.id == id )
+
+    //     if(filtered.length) {
+    //         setProduct(filtered[0]);
+    //     }
+    // }, []);
 
     const [qty, setQty] = useState(1);
 
@@ -33,15 +46,15 @@ const View = () => {
                 product !== null &&
                     <div className="flex gap-10">
                         <div className="w-[540px] h-[580px]">
-                            <img className='w-full h-full object-cover' src={product.imgUrl} alt="" />
+                            <img className='w-full h-full object-contain' src={product.image} alt="" />
                         </div>
                         <div className=" mt-24">
-                            <h1 className='text-2xl text-[#333] font-medium'>{product.name}</h1>
+                            <h1 className='text-2xl text-[#333] font-medium'>{product.title}</h1>
                             <h2 className='text-2xl text-primary font-bold mt-2'>${product.price}</h2>
                             <ul className='py-4 border-b'>
                                 <li className="flex items-center gap-[38px]">
                                     <p className='text-sm text-[#444]'>Category</p>
-                                    <p className=' text-sm text-orange'>: Household</p>
+                                    <p className=' text-sm text-orange'>: Shoe</p>
                                 </li>
                                 <li className="flex items-center gap-8 mt-1.5">
                                     <p className='text-sm text-[#444]'>Availibility</p>
@@ -61,7 +74,7 @@ const View = () => {
                                     </div>
                                 </div>
                                 <div className=" mt-7 flex items-center gap-2.5">
-                                    <button onClick={() => addToCart({...product, qty})} className='uppercase text-white px-12 py-2.5 font-medium text-sm rounded-md bg-gradient-to-r from-primary to-orange'>add to cart</button>
+                                    <button onClick={() => addToCart({...product, qty:Number(qty)})} className='uppercase text-white px-12 py-2.5 font-medium text-sm rounded-md bg-gradient-to-r from-primary to-orange'>add to cart</button>
                                     <button className='w-10 h-10 flex items-center justify-center text-sm rounded-full bg-sky hover:bg-gradient-to-r from-primary to-orange text-white'><SlDiamond /></button>
                                     <button className='w-10 h-10 flex items-center justify-center text-sm rounded-full bg-sky hover:bg-gradient-to-r from-primary to-orange text-white'><BsHeart /></button>
                                 </div>

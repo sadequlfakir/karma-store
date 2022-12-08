@@ -7,10 +7,10 @@ const Card = ({ name, price, rPrice, imgUrl, handleAddToCart, singleViewLink }) 
     return (
         <div className="max-w-[255px] overflow-hidden">
             <div className="group w-[255px] h-[271px] overflow-hidden select-none">
-                <img className='w-full h-full scale-100 group-hover:scale-125 duration-700 ease-in-out object-cover' src={imgUrl} alt="" />
+                <img className='w-full h-full scale-100 group-hover:scale-125 duration-700 ease-in-out object-contain' src={imgUrl} alt="" />
             </div>
             <div className="mt-5">
-                <h6 className='uppercase font-medium text-[#222222] '>{name}</h6>
+                <h6 className='uppercase min-h-[48px] max-h-12 overflow-hidden font-medium text-[#222222] '>{name}</h6>
                 <div className="font-medium text-sm text-[#222222] mt-2">
                     <span className='mr-5'>${price}.00</span>
                     <span className='text-secondary line-through'>${rPrice}.00</span>

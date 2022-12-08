@@ -13,7 +13,6 @@ const getCarts = () => {
     }
 }
 
-
 const Provider = ({children}) => {
 
     const [bag, setBag] = useState(getCarts());
