@@ -57,7 +57,7 @@ const Shop = () => {
                 {
                     loading ? 
                     <div className=" h-24 flex justify-center items-center">
-                        <BiLoaderAlt className='text-3xl text-orange animate-spin' />
+                         <BiLoaderAlt className='text-3xl text-orange animate-spin' />  {/* Loading 🔥 👈 */}
                     </div>
                     : null
                 }
@@ -66,7 +66,7 @@ const Shop = () => {
                         (search.length >= 1) ? 
                         filterProducts.length == 0 ? 
                         <div className="mt-24 col-span-4 text-center">
-                            <p className='text-3xl font-bold'>Product Not found</p>
+                            <p className='text-3xl font-bold'>Product Not found</p> {/* Poduct Not found Text 🔥 👈 */}
                         </div>
                         :filtredProducts?.map((product, idx) => <Card
                             key={`product_${idx}`}

@@ -9,6 +9,7 @@ const Home = () => {
             <div className="">
                 <h1 className='text-center font-semibold text-4xl my-6'>Latest Products</h1>
             </div>
+            {/* Latest Products 🔥 👇 */}
             <Products />
         </div>
     )

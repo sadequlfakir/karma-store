@@ -1,8 +1,8 @@
 import { createContext, useEffect, useState } from "react";
 
-export const GlobalState = createContext();
+export const GlobalState = createContext(); // Create Globalt state 🔥 👈
 
-//  save data in localStorage 👇
+//  Get data in localStorage 👇
 
 const getCarts = () => {
     let cartsData = localStorage.getItem('carts')
@@ -17,9 +17,13 @@ const Provider = ({children}) => {
 
     const [bag, setBag] = useState(getCarts());
 
+    // Save data in localstorage 🔥 👇
+
     useEffect(() => {
         localStorage.setItem("carts", JSON.stringify(bag))
     }, [bag]);
+
+    // Add product in Cart 🔥 👇
 
     const addToCart = (product) => {
         const oldBag = [...bag]
@@ -31,23 +35,16 @@ const Provider = ({children}) => {
             setBag(oldBag)
         }
     };
-    // const removeToCart = (index) => {
-    //     const updateCart = [...bag]
-    //     const item = updateCart[index]
-    //     if(item.qty > 1){
-    //         item.qty -= 1;
-    //     }else{
-    //        setBag(prev => [...prev.filter((_,idx) => idx !== index)])
-    //     }
-    // };
     
+    // Remove product in Cart 🔥 👇
+
     const removeToCart = (index) => {
         setBag(bag.filter((_,idx) => idx !== index))
     }
     const totalPrice = bag.reduce((acc,pd) => acc + (pd.price * pd.qty),0);
     const totalQty = bag.reduce((acc,pd) => acc + pd.qty ,0);
 
-    
+    // Plus product Qty 🔥 👇
 
     const addQty = (index) => {
         const updateQty = [...bag]
@@ -57,6 +54,9 @@ const Provider = ({children}) => {
             setBag(updateQty)
         }
     }
+
+     // Minus product Qty 🔥 👇
+
     const removeQty = (index) => {
         const updateQty = [...bag]
         const itm = updateQty[index]
