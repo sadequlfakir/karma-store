@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { Link,NavLink } from 'react-router-dom';
 import {BsFillHandbagFill, BsSearch} from 'react-icons/bs'
 import { GlobalState } from '../../store';
+import { ToastContainer } from 'react-toastify';
 
 const Header = () => {
 
@@ -9,6 +10,7 @@ const Header = () => {
 
     return (
         <div className=" mt-[40px] py-4 px-[2%] mx-[8%] shadow-[0_10px_30px_rgb(0,0,0,10%)] flex justify-between items-center">
+            <ToastContainer /> {/*  React toastify  */}
             <div className="w-[137px] h-[50px]">
                 <Link to='/' >
                     <img className='object-cover' src="/img/logo.webp" alt="" />
@@ -26,7 +28,7 @@ const Header = () => {
                         <NavLink style={({isActive}) => ({color: isActive ? '#ffba00' : 'black'})} to='blog'>Blog</NavLink>
                     </li>
                     <li className='hover:text-primary'>
-                        <NavLink style={({isActive}) => ({color: isActive ? '#ffba00' : 'black'})} to='pages'>Pages</NavLink>
+                        <NavLink style={({isActive}) => ({color: isActive ? '#ffba00' : 'black'})} to='users'>Users</NavLink>
                     </li>
                     <li className='hover:text-primary'>
                         <NavLink style={({isActive}) => ({color: isActive ? '#ffba00' : 'black'})} to='contact'>Contact</NavLink>

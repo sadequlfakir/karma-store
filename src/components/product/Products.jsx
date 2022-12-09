@@ -11,16 +11,17 @@ const Products = () => {
     useEffect(() => {
 
         const fetchData = async () => {
-            const prd = await fetch('https://fakestoreapi.com/products');
+            const prd = await fetch('https://dummyjson.com/products?limit=100');
             const jsPrd = await prd.json();
-            console.log(jsPrd);
-            setProducts(jsPrd);
+            setProducts(jsPrd.products);
         };
 
         return () => fetchData();
 
     },[]);
-    console.log(products);
+    
+    console.log('Product', products)
+    
     return (
         <div className="grid md:grid-cols-3 lg:grid-cols-4 gap-5 px-10">
             {
@@ -30,7 +31,7 @@ const Products = () => {
                     name={product.title}
                     price={product.price}
                     rPrice={product.regularPrice}
-                    imgUrl={product.image}
+                    imgUrl={product.thumbnail}
                     handleAddToCart={() => addToCart({...product, qty: 1})}
                     singleViewLink={`/view/${product.id}`}
                 />

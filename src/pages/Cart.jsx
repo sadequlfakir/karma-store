@@ -25,18 +25,18 @@ const Cart = () => {
                         <div key={idx} className="py-[30px] flex items-center border-b">
                             <div className="flex items-center w-[60%]">
                                 <div className="w-[152px] h-[102px] border-b-2">
-                                    <img className='w-full h-full object-contain' src={product.image} alt="" />
+                                    <img className='w-full h-full object-contain' src={product.thumbnail} alt="" />
                                 </div>
                                 <p className='max-w-[504px] text-sm text-secondary ml-[30px]'>{product.title}</p>
                             </div>
                             <div className="flex-1 flex items-center justify-between">
-                                <p className='text-sm text-[#222222] font-medium'>${product.price.toFixed(2)}</p>
+                                <p className='text-sm text-[#222222] font-medium'>${product.price}</p>
                                 <div className="flex items-center">
                                     <button onClick={()=> removeQty(idx)} className='text-2xl text-secondary'><AiFillMinusSquare /></button>
                                     <input className='max-w-[70px] px-5 text-center focus:outline-none' maxlength="3" value={product.qty} type="text" />
                                     <button onClick={()=> addQty(idx)} className='text-2xl text-secondary'><AiFillPlusSquare /></button>
                                 </div>
-                                <p className='w-24 text-sm text-[#222222] font-medium'>${(product.qty * product.price).toFixed(2)}</p>
+                                <p className='w-24 text-sm text-[#222222] font-medium'>${(product.qty * product.price)}</p>
                             </div>
                             <div className="w-[7%] flex justify-end">
                                 <button onClick={() => removeToCart(idx)}>

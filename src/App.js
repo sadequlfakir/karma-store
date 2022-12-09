@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Route, Routes }from 'react-router-dom'
-import { Cart, Checkout, Home, Shop, View } from './pages'
+import { Cart, Users, Home, Shop, View, Blog, Test } from './pages'
 import { Footer, Header } from './components'
 
 const App = () => {
@@ -12,7 +12,9 @@ const App = () => {
           <Route path='/shop' element={<Shop />} />
           <Route path='/view/:id' element={<View />} />
           <Route path='/cart' element={<Cart />} />
-          <Route path='/checkout' element={<Checkout />} />
+          <Route path='/users' element={<Users />} />
+          <Route path='/blog' element={<Blog />} />
+          <Route path='/test' element={<Test />} />
         </Routes>
         <Footer />
       </BrowserRouter>

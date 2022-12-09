@@ -1,4 +1,5 @@
 import { createContext, useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 export const GlobalState = createContext(); // Create Globalt state 🔥 👈
 
@@ -34,6 +35,7 @@ const Provider = ({children}) => {
             oldBag[productIndex].qty += 1;
             setBag(oldBag)
         }
+        toast.success("Added successfully!");
     };
     
     // Remove product in Cart 🔥 👇

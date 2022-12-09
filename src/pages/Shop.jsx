@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import {ProductFilter, Products} from '../components'
+import { ProductFilter } from '../components'
 import Card from '../components/product/Card';
 import { GlobalState } from '../store';
 import {BiLoaderAlt} from 'react-icons/bi'
@@ -12,16 +12,16 @@ const Shop = () => {
     // Add product from server 🔥 👇
 
     const [products, setProducts] = useState([]);
-    const [filtredProducts, setFilter] = useState([]);
+    const [filterdProducts, setFilter] = useState([]);
 
     const [loading, setLoading] = useState(false);
     
     useEffect(() => {
         const fetchData = async () => {
             setLoading(true);
-            const prd = await fetch('https://fakestoreapi.com/products');
+            const prd = await fetch('https://dummyjson.com/products?limit=100');
             const jsPrd = await prd.json();
-            setProducts(jsPrd);
+            setProducts(jsPrd.products);
             setLoading(false);
         };
 
@@ -29,7 +29,7 @@ const Shop = () => {
 
     },[]);
 
-    // Product filtering for Url 🔥 👇
+    // Product filtering by Url 🔥 👇
 
     const [searchParams] = useSearchParams();
     const search = searchParams.get('search') === null ? '' : searchParams.get('search');
@@ -46,8 +46,10 @@ const Shop = () => {
     };
 
     useEffect(() => {
-        filterProducts();
+       filterProducts();
     }, [products]);
+    console.log("filterProducts", filterdProducts)
+
 
     return (
         <div className="min-h-[50vh] my-28 mx-[10%]">
@@ -64,26 +66,31 @@ const Shop = () => {
                 <div className="grid grid-cols-4 gap-5">
                     {   
                         (search.length >= 1) ? 
-                        filterProducts.length == 0 ? 
+                        filterdProducts.length == 0 ? 
                         <div className="mt-24 col-span-4 text-center">
                             <p className='text-3xl font-bold'>Product Not found</p> {/* Poduct Not found Text 🔥 👈 */}
                         </div>
-                        :filtredProducts?.map((product, idx) => <Card
-                            key={`product_${idx}`}
-                            name={product.title}
-                            price={product.price}
-                            rPrice={product.regularPrice}
-                            imgUrl={product.image}
-                            handleAddToCart={() => addToCart({...product, qty: 1})}
-                            singleViewLink={`/view/${product.id}`}
-                        />):
-                        products.map((product,idx) => 
+                        :filterdProducts?.map((product, idx) => {
+                            const { title, price, thumbnail } = product;
+                            return (
+                                <Card
+                                    key={`product_${idx}`}
+                                    name={title}
+                                    price={price}
+                                    rPrice={product?.regularPrice ?? 0}
+                                    imgUrl={thumbnail}
+                                    handleAddToCart={() => addToCart({...product, qty: 1})}
+                                    singleViewLink={`/view/${product.id}`}
+                                />
+                            )
+                        })
+                        :products.map((product,idx) => 
                             <Card
                                 key={`product_${idx}`}
                                 name={product.title}
                                 price={product.price}
-                                rPrice={product.regularPrice}
-                                imgUrl={product.image}
+                                rPrice={product?.regularPrice ?? 0}
+                                imgUrl={product.thumbnail}
                                 handleAddToCart={() => addToCart({...product, qty: 1})}
                                 singleViewLink={`/view/${product.id}`}
                             />

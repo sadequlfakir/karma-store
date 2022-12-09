@@ -8,14 +8,16 @@ import { GlobalState } from '../store';
 
 const View = () => {
 
+    const { id } = useParams();
     const [product, setProduct] = useState({});
 
     useEffect(() => {
 
         const fetchPData = async () => {
-            const sprd = await fetch(`https://fakestoreapi.com/products/${id}`)
+            const sprd = await fetch(`https://dummyjson.com/products/${id}`)
             const jsSprd = await sprd.json();
             setProduct(jsSprd);
+            console.log("Data =>", typeof jsSprd.title)
         }
         
         return () => fetchPData()
@@ -36,7 +38,14 @@ const View = () => {
     // }, []);
 
     const [qty, setQty] = useState(1);
-    const onChangeH = (e) => setQty(e.target.value);
+    const onChangeH = (e) => {
+        const value = e.target.value;
+        if(value >= 5){
+            setQty(5);
+        }else{
+            setQty(value);
+        }
+    };
     const [tab, setTab] = useState('description');
     const {addToCart} = useContext(GlobalState)
 
@@ -46,7 +55,7 @@ const View = () => {
                 product !== null &&
                     <div className="flex gap-10">
                         <div className="w-[540px] h-[580px]">
-                            <img className='w-full h-full object-contain' src={product.image} alt="" />
+                            <img className='w-full h-full object-contain' src={product.thumbnail} alt="" />
                         </div>
                         <div className=" mt-24">
                             <h1 className='text-2xl text-[#333] font-medium'>{product.title}</h1>
@@ -54,23 +63,23 @@ const View = () => {
                             <ul className='py-4 border-b'>
                                 <li className="flex items-center gap-[38px]">
                                     <p className='text-sm text-[#444]'>Category</p>
-                                    <p className=' text-sm text-orange'>: Shoe</p>
+                                    <p className=' text-sm text-orange'>: {product.category}</p>
                                 </li>
                                 <li className="flex items-center gap-8 mt-1.5">
                                     <p className='text-sm text-[#444]'>Availibility</p>
-                                    <p className='text-sm text-[#444]'>: In Stock</p>
+                                    <p className='text-sm text-[#444]'>: {product.stock > 0 ? " In Stock" : " Out of stock"}</p>
                                 </li>
                             </ul>
                             <p className='max-w-[460px] text-secondary text-sm leading-6 py-4'>
-                                Mill Oil is an innovative oil filled radiator with the most modern technology. If you are looking for something that can make your interior look awesome, and at the same time give you the pleasant warm feeling during the winter.
+                                {product.description}
                             </p>
                             <div className="">
                                 <div className="flex items-center mt-10">
                                     <p className='mr-2 text-secondary'>Quantity:</p>
                                     <div className="flex items-center">
                                         <button disabled={qty <= 1} onClick={() => setQty(prev => prev -1)} className='text-2xl text-secondary'><AiFillMinusSquare /></button>
-                                        <input className='max-w-[60px] px-3 text-center focus:outline-none' maxlength="3" onChange={onChangeH} value={qty} type="text" />
-                                        <button onClick={() => setQty(prev => prev +1)} className='text-2xl text-secondary'><AiFillPlusSquare /></button>
+                                        <input className='max-w-[60px] px-3 text-center focus:outline-none' maxlength="1" max={5} onChange={onChangeH} value={qty} type="text" />
+                                        <button disabled={qty >= 5} onClick={() => setQty(prev => prev +1)} className='text-2xl text-secondary'><AiFillPlusSquare /></button>
                                     </div>
                                 </div>
                                 <div className=" mt-7 flex items-center gap-2.5">
